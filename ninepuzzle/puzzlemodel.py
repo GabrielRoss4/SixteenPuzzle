@@ -7,7 +7,7 @@ import puzzleGUI
 from random import randint
 from copy import copy
 from math import sqrt
-from ninepuzzle.puzzlehelpers import queue, stack
+from puzzlehelpers import queue, stack
 
 
 class puzzleModel(object):
@@ -19,7 +19,7 @@ class puzzleModel(object):
         # Create a copy of the beginning state so that we can retrace
         # the winning line from ordered to beginning state when solving
         self.current_puzzle_state = tuple(copy(self.puzzle_start))
-        self.puzzleGUI(self)
+        #self.puzzleGUI(self)
 
         
     def __find_blank_index(self, puzzle_state):

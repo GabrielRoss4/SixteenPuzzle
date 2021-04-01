@@ -1,17 +1,17 @@
 '''
 * This class provides the interactive GUI for the game
-* I think the GUI class is going to instantiate the puzzlemodel
 '''
 
 import tkinter as tk
-from ninepuzzle.puzzlemodel import puzzleModel
+from puzzlemodel import puzzleModel
+from time import sleep
 
 class puzzleGUI(object):
     def __init__(self):
         self.root = tk.Tk()
         self.puzzle_frame = tk.Frame(self.root)
         self.puzzle_frame.pack()
-        self.puzzlemodel = puzzleModel()
+        self.puzzle_model = puzzleModel()
 
         # puzzleGUI is going to initialize a puzzlemodel object and then
         # create buttons according to the initial puzzle state
@@ -25,7 +25,8 @@ class puzzleGUI(object):
         # them according to the generated puzzle state
 
         self.solveBFSbutton = tk.Button(self.puzzle_frame, text = "Solve using BFS", padx=10, pady=10, command=self.solve_BFS)
-        
+        self.solveBFSbutton.grid(row=0, column=3)
+
         self.button_one = tk.Button(self.puzzle_frame, text="1", padx=20, pady=20, command=lambda: self.update_puzzle_state(1))
         self.button_two = tk.Button(self.puzzle_frame, text="2", padx=20, pady=20, command=lambda: self.update_puzzle_state(2))
         self.button_three = tk.Button(self.puzzle_frame, text="3", padx=20, pady=20, command=lambda: self.update_puzzle_state(3))
@@ -45,7 +46,7 @@ class puzzleGUI(object):
                             8:self.button_eight,
                             9:self.button_blank}
 
-        self.update_display(self.puzzlemodel.current_puzzle_state)
+        self.update_display(self.puzzle_model.current_puzzle_state)
 
     def update_puzzle_state(self, button_pressed: int):
         # This method will update the backend puzzle state according
@@ -54,7 +55,8 @@ class puzzleGUI(object):
         # pressed, validates the move, and then updates the puzzle state
         # maintained back there. This method will then call the update
         # diplay method (?)
-        self.puzzlemodel.update_puzzle_state_from_GUI(button_pressed)
+        self.puzzle_model.update_puzzle_state_from_GUI(button_pressed)
+        self.update_display(self.puzzle_model.current_puzzle_state)
 
 
     def update_display(self, puzzle_state: tuple):
@@ -79,6 +81,17 @@ class puzzleGUI(object):
             # in a puzzle state? Or just update based off of the puzzle
             # state of the model (which is global and would not need
             # be passed)
-        winning_line = self.puzzlemodel.solve_BFS()
+        winning_line = self.puzzle_model.solve_BFS()
+        for state in winning_line:
+            self.update_display(state)
+            sleep(.2)
+
+    def solve_DFS(self):
+        pass
+
+    def solve_astar(self):
+        pass
+
+    
 
 

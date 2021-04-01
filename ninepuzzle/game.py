@@ -1,7 +1,9 @@
-import ninepuzzle.puzzleGUI
+from puzzleGUI import puzzleGUI
 
 
 
-class game(object):
-    def __init__(self):
-        pass
+def main():
+    thisPuzzle = puzzleGUI()
+
+if __name__ == "__main__":
+    main()
